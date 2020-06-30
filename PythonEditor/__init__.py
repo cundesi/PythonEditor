@@ -1,6 +1,6 @@
 """ PythonEditor by Max Last.
 
-The object Hierarchy is:
+The object hierarchy is:
 IDE
   PythonEditor
     TabEditor
@@ -35,14 +35,14 @@ def main():
         # this seems to not cause any crashes either
         'PySide2:PySide:PyQt5:PyQt4'
 
-    global ide
-    from PythonEditor.ui import ide
+    # do not create .pyc files
+    import sys
+    sys.dont_write_bytecode = True
 
     # for convenience - FIXME: this
     # should be developer-only or at least
     # disableable
-    import sys
-    from ui import Qt
+    from PythonEditor.ui import Qt
 
     # enable "from Qt import x" and
     sys.modules['Qt'] = Qt
@@ -50,9 +50,6 @@ def main():
     # enable "from Qt.QtCore import *"
     for name in Qt.__all__:
         sys.modules['Qt.{0}'.format(name)] = vars(Qt)[name]
-
-    # do not create .pyc files
-    sys.dont_write_bytecode = True
 
 
 def _print_load_error(error):

@@ -1,5 +1,4 @@
-"""
-The actions module houses the majority of the functionality
+""" The actions module houses the majority of the functionality
 of the PythonEditor user interface. Widgets with the Actions
 class applied will have all the methods available on that
 class applied to the widget as actions, using an overridable
@@ -819,7 +818,7 @@ class Actions(QtCore.QObject):
         Wrap selected text in brackets
         or quotes of type "key".
         """
-        key = unicode(self.editor.last_key_pressed)
+        key = str(self.editor.last_key_pressed)
         key_in, key_out = None, None
         if key in [u'\'', u'"']:
             key_in = key
@@ -1352,19 +1351,50 @@ class Actions(QtCore.QObject):
         widget.reload_package()
 
     def print_help(self):
-        """ Prints documentation for selected text 
+        """ Prints documentation for selected text
         if it currently represents a python object.
         """
-        cursor = self.editor.textCursor()
+        # this action is registered with
+        # both the editor and terminal
+        if hasattr(self, 'terminal') and self.terminal.hasFocus():
+            cursor = self.terminal.textCursor()
+        else:
+            cursor = self.editor.textCursor()
+
         selection = cursor.selection()
         text = selection.toPlainText().strip()
         if not text:
             return
-        obj = __main__.__dict__.get(text)
-        if obj is not None:
-            print(obj.__doc__)
-        elif text:
-            exec('help('+text+')', __main__.__dict__)
+        cmd = 'help({})'.format(text)
+
+        # make sure the beginning of the help 
+        # is visible in the terminal
+        if hasattr(self, 'terminal'):
+            cursor = self.terminal.textCursor()
+            cursor.movePosition(QtGui.QTextCursor.End)
+            block = cursor.block()
+
+        # set environment variable TERM
+        # to force pydoc to use plainpager
+        TERM = os.environ.get('TERM')
+        os.environ['TERM'] = 'dumb'
+        try:
+            exec(cmd, __main__.__dict__)
+        except SyntaxError:
+            try:
+                cmd = 'help("{}")'.format(text)
+                exec(cmd, __main__.__dict__)
+            except Exception:
+                pass
+        finally:
+            if TERM is None:
+                del os.environ['TERM']
+            else:
+                os.environ['TERM'] = TERM
+
+        if hasattr(self, 'terminal'):
+            cursor.setPosition(block.position())
+            self.terminal.setTextCursor(cursor)
 
     def pretty_print(self):
         """ Pretty print selected text if it
@@ -1376,9 +1406,18 @@ class Actions(QtCore.QObject):
         if not text:
             return
         try:
-            exec('pprint('+text+')', __main__.__dict__)
+            # try json first as it's nicer
+            cmd = 'print( __import__("json").dumps({}, indent=2) )'
+            exec(cmd.format(text), __main__.__dict__)
         except Exception as error:
-            print(error)
+            # fall back to pprint
+            try:
+                cmd = '__import__("pprint").pprint({})'
+                exec(cmd.format(text), __main__.__dict__)
+            except Exception as error:
+                print(error)
+                import traceback
+                traceback.print_exc()
 
     def prepend_import_statement(self):
         """

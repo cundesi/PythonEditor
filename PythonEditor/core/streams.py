@@ -1,11 +1,8 @@
-"""
-The purpose of this module is to replace Nuke's default standard
-output and error stream redirectors with ones that emit streamed
-text through a signal which can be connected to an output terminal.
-The redirectors also output to Nuke's original outputRedirector
+""" This module augments Nuke's default stdout/stderr 
+stream redirectors with ones that use Qt's Signal/Slot mechanism.
+These redirectors also output to Nuke's original outputRedirector
 and stderrRedirector which display text in the native Script Editor.
 """
-
 from __future__ import print_function
 import sys
 
@@ -13,17 +10,13 @@ from PythonEditor.ui.Qt import QtCore
 from PythonEditor.utils.debug import debug
 
 
-# ----- override Nuke hiero.FnRedirect -----
-class MockModule(object):
-    pass
-
-
+# ====================================
+# -- override Nuke hiero.FnRedirect --
+# ====================================
 class Loader(object):
-    """
-    When the Finder object on sys.meta_path returns
-    this object, attempt to load Nuke's default
+    """ When the Finder object in sys.meta_path 
+    returns this object, attempt to load Nuke's default
     redirectors and store them in the sys module.
-    Afterwards, always return the Mock module.
     """
     def load_module(self, name):
         try:
@@ -31,11 +24,16 @@ class Loader(object):
             sys.outputRedirector = outputRedirector
             sys.stderrRedirector = stderrRedirector
         finally:
+            class MockModule(object):
+                pass
             # firmly block all imports of the module
             return MockModule()
 
 
 class Finder(object):
+    """ Override the import system to provide
+    a loader that bypasses the FnRedirect module.
+    """
     _deletable = ''
 
     def find_module(self, name, path=''):
@@ -43,15 +41,19 @@ class Finder(object):
             return Loader()
 
 
-sys.meta_path = [i for i in sys.meta_path
-                 if not hasattr(i, '_deletable')]
+# clear any previous instances first
+sys.meta_path = [
+    i for i in sys.meta_path
+    if not hasattr(i, '_deletable')
+]
 sys.meta_path.append(Finder())
-# ----- end override section -----
+# ====================================
+# ------- end override section -------
+# ====================================
 
 
 class PySingleton(object):
-    """
-    Return a single instance of a class
+    """ Return a single instance of a class
     or create a new instance if none exists.
     """
     def __new__(cls, *args, **kwargs):
@@ -61,18 +63,16 @@ class PySingleton(object):
 
 
 class Speaker(QtCore.QObject):
-    """
-    Used to relay sys stdout, stderr, stdin
+    """ Used to relay sys stdout, stderr, stdin
     """
     emitter = QtCore.Signal(str)
 
 
 class SERedirector(object):
-    """
-    For encapsulating and replacing a stream object.
+    """ For encapsulating and replacing a stream object.
     """
     def __init__(self, stream, _signal=None):
-        fileMethods = ('fileno',
+        file_methods = ('fileno',
                        'flush',
                        'isatty',
                        'read',
@@ -89,7 +89,7 @@ class SERedirector(object):
         if hasattr(stream, 'reset'):
             stream.reset()
 
-        for i in fileMethods:
+        for i in file_methods:
             if not hasattr(self, i) and hasattr(stream, i):
                 setattr(self, i, getattr(stream, i))
 

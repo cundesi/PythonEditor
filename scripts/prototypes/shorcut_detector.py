@@ -82,7 +82,7 @@ class KeyCatcher(QtWidgets.QPlainTextEdit):
     shortcut_signal = QtCore.Signal(unicode)
     def __init__(self):
         super(KeyCatcher, self).__init__()
-        self.wait_for_autocomplete = False
+        self.autocomplete_overriding = False
 
     def keyPressEvent(self, event):
         shortcut = key_to_shortcut(event.key())
@@ -126,5 +126,5 @@ k.show()
 
 #&& # test 2
 for key in QtCore.Qt.Key.values.values():
-    print key_to_shortcut(key)
+    print(key_to_shortcut(key))
 #&&

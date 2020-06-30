@@ -26,8 +26,7 @@ class PyKnobs(QtWidgets.QWidget):
 
 
 class PyKnobEdit(editor.Editor):
-    """
-    Editor that automatically updates knobs.
+    """ Editor that automatically updates knobs.
     """
     def __init__(self, knob):
         super(PyKnobEdit, self).__init__()
@@ -59,14 +58,14 @@ class PyKnobEdit(editor.Editor):
 
 @QtCore.Slot(object)
 def addTextKnobs(node):
-    """
-    Finds node panel widget and adds some
+    """ Finds node panel widget and adds some
     extra widgets to it that act like knobs.
     TODO: find node panels in Properties bin.
     also appears that this causes segmentation faults
-    probably because of pointers to missing or already deleted widgets.
+    probably because of pointers to missing or already 
+    deleted widgets.
     """
-    print node.name()
+    print(node.name())
 
     np_list = [w for w in QtWidgets.QApplication.instance().allWidgets()
                if w.objectName() == node.name()]
@@ -76,7 +75,7 @@ def addTextKnobs(node):
         return
 
     sw = np.findChild(QtWidgets.QStackedWidget, 'qt_tabwidget_stackedwidget')
-    print sw
+    print(sw)
     tw = sw.parent()
     pyk = PyKnobs([k for k in node.allKnobs() if 'py' in k.Class().lower()])
     tw.addTab(pyk, 'Python Knobs')
@@ -87,6 +86,7 @@ def addTextKnobs(node):
     # for k in node.allKnobs():
     #     if 'py' in k.Class().lower():
     #         stw.addTab(PyKnobEdit(k), k.name())
+
 
 def pythonKnobEdit():
     if nuke.thisKnob().name() == 'showPanel':  # TODO: is there a 'knob added' knobchanged?

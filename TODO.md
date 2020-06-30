@@ -1,31 +1,48 @@
 # Python Editor TODO list
 
 
-#### Bug fixes
+#### Bug reports
+- [ ] Sometimes (so far only tested on standalone and in windows...) Ctrl+H will cause the interface to freeze as it is awaiting user input to reveal more information in the program terminal.
+- [ ] autocomplete doesn't pick up all variables such as asset.properties.value_dict
+
+Within Nuke
+- [ ] Startup doesn't redirect streams correctly if panel doesn't open in workspace automatically on startup.
+      Steps to reproduce this bug:
+      1) Save a workspace that doesn't include PythonEditor on startup (any default will do).
+      2) Open a Script Editor and attempt to print to the output. Nothing should appear after # Result.
+      3) Open PythonEditor. Streams will be captured and redirected correctly, and the Script Editor once again prints things out.
+
 - [ ] Sometimes the shortcuthandler doesn't override - perhaps when editor doesn't gain focus correctly
-- [ ] If script is saved as text somewhere and not edited, a warning message still shows up on close.
-- [ ] When pressing enter when cursor is here `|    "` the line double-indents.
 - [ ] Shift-enter does not correctly create a new line in the editor and line number display on the left.
-- [ ] Tab may duplicate on save
-- [ ] Close button should be persistent
-      on the active tab.
+
+Nuke 11 specific
+- [ ] In Nuke 11.3v5, closing a tab by clicking the close Button can crash Nuke
+- [ ] Workspace doesn't properly recover on Nuke 11
+- [ ] Right-clicking in the output widget produces two context menus in Nuke 11+
+
+Other
+- [ ] Tab may duplicate on save.
+- [ ] Close button should be persistent on the active tab.
 - [ ] Sometimes wrong tab may be clicked
 - [ ] Confirm overwrite file on save.
 - [ ] When editing a document across multiple instances, updating to latest autosave sometimes triggers twice.
 - [ ] Alt-tabbing quickly away from and back to the editor causes an autosave message. call autosave() on focusOutEvent to ensure save.
 - [ ] Opening a file doesn't prevent its contents from being autosaved. If not modified, files should be read-only.
-- [ ] Workspace doesn't properly recover on Nuke 11
 - [ ] The same file opened twice will open two separate tabs.
 - [ ] Ctrl+F doesn't update word highlighting selection.
-- [ ] Help -> About shows nothing
 - [ ] Minor - Clicking on a tab to the right of the QLineEdit when editing a tab name causes a jump, and the wrong tab to be selected.
-- [ ] Save functions need to be amended to work with new single editor
 - [ ] Select between brackets only works for round brackets
 - [ ] On first open (if not pinned to layout), tab may not display contents
 - [ ] Word wrapping and blocks can cause errors, especially in moving text up/down
 - [ ] Tooltip colour permanently set in autocompletion
 - [ ] Double printing to sys.stdout (/probably/ caused by writing to sys.__stdout__ as well as outputRedirector)
 - [ ] Override setPlainText to avoid string encoding errors (can this affect copy paste?)
+- [?] Save functions need to be amended to work with new single editor
+
+Resolved
+- [x] If script is saved as text somewhere and not edited, a warning message still shows up on close.
+- [x] When pressing enter when cursor is here `|    "` the line double-indents.
+- [x] Help -> About shows nothing
 - [x] Save functions need to be amended to work with new single editor
 - [x] Search causes cursor to go missing
 - [x] # in string causes rest of line to be greyed out

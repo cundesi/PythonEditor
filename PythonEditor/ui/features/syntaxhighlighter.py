@@ -1,6 +1,8 @@
 import tokenize
-import StringIO
-import time
+try:
+    from StringIO import StringIO ## for Python 2
+except ImportError:
+    from io import StringIO ## for Python 3
 import re
 
 from PythonEditor.ui.Qt import QtGui
@@ -48,8 +50,7 @@ themes = {
 
 
 class Highlight(QtGui.QSyntaxHighlighter):
-    """
-    Modified, simplified version of some code
+    """ Modified, simplified version of some code
     that Wouter Gilsing found and modified when researching.
     wiki.python.org/moin/PyQt/Python%20syntax%20highlighting
     """
@@ -57,11 +58,11 @@ class Highlight(QtGui.QSyntaxHighlighter):
         'self', 'cls', 'args', 'kwargs'
     ]
     keywords = [
-        'and', 'assert', 'break', 'continue',
+        'and', 'as', 'assert', 'async', 'await', 'break', 'continue',
         'del', 'elif', 'else', 'except', 'exec', 'finally',
         'for', 'from', 'global', 'if', 'import', 'in',
-        'is', 'lambda', 'not', 'or', 'pass', 'print', 'as',
-        'raise', 'return', 'try', 'while', 'yield', 'with'
+        'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'print', 
+        'raise', 'return', 'try', 'while', 'with', 'yield'
     ]
     instantiators = [
         'def', 'class'
@@ -251,7 +252,7 @@ class Highlight(QtGui.QSyntaxHighlighter):
                 index = expression.indexIn(text, index + length)
 
         if '#' in text:
-            s = StringIO.StringIO(text)
+            s = StringIO(text)
             g = tokenize.generate_tokens(s.readline)
             try:
                 for toktype, tok, start, end, line in g:

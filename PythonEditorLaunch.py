@@ -14,13 +14,12 @@ start = time.time()
 
 try:
     import nuke
-    pyside = bool(
-        'PySide'
-        if (nuke.NUKE_VERSION_MAJOR < 11)
-        else 'PySide2'
-    )
+    if nuke.NUKE_VERSION_MAJOR < 11:
+        pyside = 'PySide'
+    else:
+        pyside = 'PySide2'
 except ImportError:
-    pyside = 'PySide'
+    pyside = 'PySide2'
 
 os.environ['QT_PREFERRED_BINDING'] = pyside
 os.environ['PYTHONEDITOR_CAPTURE_STARTUP_STREAMS'] = '1'
@@ -42,10 +41,19 @@ os.environ[PDF] = 'Consolas'
 _ide = ide.IDE()
 app.setPalette(nukepalette.getNukePalette())
 _ide.showMaximized()
-plastique = QtWidgets.QStyleFactory.create(
-    'Plastique'
-)
-QtWidgets.QApplication.setStyle(plastique)
+
+# Plastique isn't available on Windows, so try multiple styles.
+styles = QtWidgets.QStyleFactory.keys()
+style_found = False
+for style_name in ['Plastique', 'Fusion']:
+    if style_name in styles:
+        print('Setting style to:', style_name)
+        style_found = True
+        break
+
+if style_found:
+    style = QtWidgets.QStyleFactory.create(style_name)
+    QtWidgets.QApplication.setStyle(style)
 
 print(
     'PythonEditor import time: %.04f seconds'
