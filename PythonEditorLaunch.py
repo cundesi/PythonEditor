@@ -19,9 +19,10 @@ try:
     else:
         pyside = 'PySide2'
 except ImportError:
-    pyside = 'PySide2'
+    pyside = None
 
-os.environ['QT_PREFERRED_BINDING'] = pyside
+if pyside:
+    os.environ['QT_PREFERRED_BINDING'] = pyside
 os.environ['PYTHONEDITOR_CAPTURE_STARTUP_STREAMS'] = '1'
 
 # with startup variables set,
