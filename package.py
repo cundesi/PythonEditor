@@ -21,7 +21,7 @@ def current_folder():
     return os.path.dirname(__file__).replace('\\', '/')
 
 
-build_command = "python -m build_utils --install {root}"
+build_command = "python -m build_utils build {root}"
 
 uuid = "cundesi.python_editor"
 

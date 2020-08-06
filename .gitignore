@@ -16,3 +16,4 @@ test_code_objects.py
 *.sublime-project
 *.h
 *.cpp
+build/
