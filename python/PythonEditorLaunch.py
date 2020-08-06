@@ -37,17 +37,18 @@ def main(set_styles=True):
     _ide.showMaximized()
 
     # Plastique isn't available on Windows, so try multiple styles.
-    styles = QtWidgets.QStyleFactory.keys()
-    style_found = False
-    for style_name in ['Plastique', 'Fusion']:
-        if style_name in styles:
-            print('Setting style to:', style_name)
-            style_found = True
-            break
+    if set_styles:
+        styles = QtWidgets.QStyleFactory.keys()
+        style_found = False
+        for style_name in ['Plastique', 'Fusion']:
+            if style_name in styles:
+                print('Setting style to:', style_name)
+                style_found = True
+                break
 
-    if style_found:
-        style = QtWidgets.QStyleFactory.create(style_name)
-        QtWidgets.QApplication.setStyle(style)
+        if style_found:
+            style = QtWidgets.QStyleFactory.create(style_name)
+            QtWidgets.QApplication.setStyle(style)
 
     print('PythonEditor import time: %.04f seconds' % (time.time() - start))
     if app.applicationName() in ['python', 'mayapy']:
