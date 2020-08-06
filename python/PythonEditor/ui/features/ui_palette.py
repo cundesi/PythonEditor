@@ -5,7 +5,7 @@ QBrush = QtGui.QBrush
 QColor = QtGui.QColor
 
 
-def getNukePalette():
+def get_palette_style():
     """
     #get macro for QApplication
     from PySide.QtGui import qApp

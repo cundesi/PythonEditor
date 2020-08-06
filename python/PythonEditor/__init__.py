@@ -21,20 +21,7 @@ IDE
 
 def main():
     import os
-    bindings = 'PySide2', 'PyQt5', 'PySide', 'PyQt4'
-
-    # anti-crash prevention from Nuke 11 to 10.
-    try:
-        import nuke
-        pyside = ('PySide' if (nuke.NUKE_VERSION_MAJOR < 11) else 'PySide2')
-    except ImportError:
-        pyside = 'PySide'
-
-    if not os.environ.get('QT_PREFERRED_BINDING'):
-        os.environ['QT_PREFERRED_BINDING'] = pyside
-        # this seems to not cause any crashes either
-        'PySide2:PySide:PyQt5:PyQt4'
-
+    
     # do not create .pyc files
     import sys
     sys.dont_write_bytecode = True

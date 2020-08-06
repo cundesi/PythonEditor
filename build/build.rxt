@@ -1,0 +1,95 @@
+{
+    "rez_version": "2.63.0",
+    "resolved_packages": [
+        {
+            "variables": {
+                "index": null,
+                "version": "windows",
+                "repository_type": "filesystem",
+                "location": "c:\\users\\panyu01\\packages",
+                "name": "platform"
+            },
+            "key": "filesystem.variant"
+        },
+        {
+            "variables": {
+                "index": null,
+                "version": "AMD64",
+                "repository_type": "filesystem",
+                "location": "c:\\users\\panyu01\\packages",
+                "name": "arch"
+            },
+            "key": "filesystem.variant"
+        },
+        {
+            "variables": {
+                "index": null,
+                "version": "windows-10.0.17763",
+                "repository_type": "filesystem",
+                "location": "c:\\users\\panyu01\\packages",
+                "name": "os"
+            },
+            "key": "filesystem.variant"
+        },
+        {
+            "variables": {
+                "index": 0,
+                "version": "2.7.18",
+                "repository_type": "filesystem",
+                "location": "c:\\users\\panyu01\\packages",
+                "name": "python"
+            },
+            "key": "filesystem.variant"
+        },
+        {
+            "variables": {
+                "index": null,
+                "version": "0.0.1",
+                "repository_type": "filesystem",
+                "location": "c:\\users\\panyu01\\packages",
+                "name": "rez_build"
+            },
+            "key": "filesystem.variant"
+        }
+    ],
+    "num_loaded_packages": 5,
+    "package_caching": false,
+    "solve_time": 0.006999969482421875,
+    "implicit_packages": [
+        "~platform==windows",
+        "~arch==AMD64",
+        "~os==windows-10.0.17763"
+    ],
+    "parent_suite_path": null,
+    "graph": "{'nodes': [((('fillcolor', '#AAFFAA'), ('fontsize', 10), ('style', 'filled')), [('_9', 'rez_build-0.0.1[]'), ('_8', 'python-2.7.18[0]'), ('_7', 'os-windows-10.0.17763[]'), ('_6', 'arch-AMD64[]'), ('_5', 'platform-windows[]')]), ((('fillcolor', '#F6F6F6'), ('fontsize', 10), ('style', 'filled,dashed')), [('_13', 'python-2.7+<4'), ('_12', 'os-windows-10.0.17763'), ('_11', 'arch-AMD64'), ('_10', 'platform-windows')]), ((('fillcolor', '#FFFFAA'), ('fontsize', 10), ('style', 'filled,dashed')), [('_4', '~os==windows-10.0.17763'), ('_3', '~arch==AMD64'), ('_2', '~platform==windows'), ('_1', 'rez_build')])], 'edges': [((('arrowsize', '0.5'),), [('_9', '_13'), ('_8', '_11'), ('_8', '_12'), ('_8', '_10'), ('_7', '_10'), ('_7', '_11'), ('_4', '_7'), ('_3', '_6'), ('_2', '_5'), ('_1', '_9'), ('_13', '_8'), ('_12', '_7'), ('_11', '_6'), ('_10', '_5')])]}",
+    "package_paths": [
+        "C:\\Users\\panyu01\\packages",
+        "C:\\Users\\panyu01\\.rez\\packages\\int",
+        "C:\\Users\\panyu01\\.rez\\packages\\ext"
+    ],
+    "platform": "windows",
+    "rez_path": "c:\\rez\\lib\\site-packages\\rez",
+    "load_time": 0.0,
+    "default_patch_lock": "no_lock",
+    "suite_context_name": null,
+    "serialize_version": "4.5",
+    "timestamp": 1596681524,
+    "append_sys_path": true,
+    "status": "solved",
+    "host": "GIH-D-21606",
+    "user": "panyu01",
+    "package_filter": [],
+    "arch": "AMD64",
+    "building": true,
+    "requested_timestamp": null,
+    "package_orderers": null,
+    "package_requests": [
+        "rez_build"
+    ],
+    "failure_description": null,
+    "created": 1596681524,
+    "patch_locks": {},
+    "from_cache": false,
+    "caching": true,
+    "os": "windows-10.0.17763"
+}

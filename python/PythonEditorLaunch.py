@@ -12,23 +12,12 @@ import time
 sys.dont_write_bytecode = True
 start = time.time()
 
-try:
-    import nuke
-    if nuke.NUKE_VERSION_MAJOR < 11:
-        pyside = 'PySide'
-    else:
-        pyside = 'PySide2'
-except ImportError:
-    pyside = None
-
-if pyside:
-    os.environ['QT_PREFERRED_BINDING'] = pyside
 os.environ['PYTHONEDITOR_CAPTURE_STARTUP_STREAMS'] = '1'
 
 # with startup variables set,
 # we can now import the package in earnest.
 from PythonEditor.ui import ide
-from PythonEditor.ui.features import nukepalette
+from PythonEditor.ui.features import ui_palette
 from PythonEditor.ui.Qt import QtWidgets, QtGui
 
 try:
@@ -40,7 +29,7 @@ except RuntimeError:
 PDF = 'PYTHONEDITOR_DEFAULT_FONT'
 os.environ[PDF] = 'Consolas'
 _ide = ide.IDE()
-app.setPalette(nukepalette.getNukePalette())
+app.setPalette(ui_palette.get_palette_style())
 _ide.showMaximized()
 
 # Plastique isn't available on Windows, so try multiple styles.

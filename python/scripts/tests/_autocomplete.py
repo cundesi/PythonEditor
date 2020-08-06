@@ -10,14 +10,6 @@ TESTS_DIR = os.path.dirname(__file__)
 PACKAGE_PATH = os.path.dirname(TESTS_DIR)
 sys.path.append(PACKAGE_PATH)
 
-try:
-    import nuke
-    pyside = ('PySide' if (nuke.NUKE_VERSION_MAJOR < 11) else 'PySide2')
-except ImportError:
-    pyside = 'PySide'
-
-os.environ['QT_PREFERRED_BINDING'] = pyside
-
 from PythonEditor.ui.features import nukepalette
 from PythonEditor.ui.features import autocompletion
 from PythonEditor.ui import editor
