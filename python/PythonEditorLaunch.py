@@ -22,7 +22,7 @@ from PythonEditor.ui.Qt import QtGui
 from PythonEditor.ui.Qt import QtCore
 
 
-def main(set_styles=True):
+def main():
     app = QtWidgets.QApplication.instance()
     if not app:
         app = QtWidgets.QApplication(sys.argv)
@@ -32,25 +32,23 @@ def main(set_styles=True):
     _ide = ide.IDE()
     _ide.setParent(app.activeWindow())
     _ide.setWindowFlags(QtCore.Qt.Window)
-    if set_styles:
-        app.setPalette(ui_palette.get_palette_style())
-    _ide.showMaximized()
+    _ide.setPalette(ui_palette.get_palette_style())
 
     # Plastique isn't available on Windows, so try multiple styles.
-    if set_styles:
-        styles = QtWidgets.QStyleFactory.keys()
-        style_found = False
-        for style_name in ['Plastique', 'Fusion']:
-            if style_name in styles:
-                print('Setting style to:', style_name)
-                style_found = True
-                break
+    styles = QtWidgets.QStyleFactory.keys()
+    style_found = False
+    for style_name in ['Plastique', 'Fusion']:
+        if style_name in styles:
+            print('Setting style to:', style_name)
+            style_found = True
+            break
 
-        if style_found:
-            style = QtWidgets.QStyleFactory.create(style_name)
-            QtWidgets.QApplication.setStyle(style)
+    if style_found:
+        style = QtWidgets.QStyleFactory.create(style_name)
+        _ide.setStyle(style)
 
     print('PythonEditor import time: %.04f seconds' % (time.time() - start))
+    _ide.showMaximized()
     if app.applicationName() in ['python', 'mayapy']:
         sys.exit(app.exec_())
 
