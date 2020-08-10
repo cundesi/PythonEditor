@@ -28,7 +28,7 @@ def main():
         app = QtWidgets.QApplication(sys.argv)
 
     PDF = 'PYTHONEDITOR_DEFAULT_FONT'
-    os.environ[PDF] = 'Consolas'
+    os.environ[PDF] = 'Source Code Pro for Powerline'
     _ide = ide.IDE()
     _ide.setParent(app.activeWindow())
     _ide.setWindowFlags(QtCore.Qt.Window)
