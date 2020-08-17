@@ -80,7 +80,49 @@ class IDE(QWidget):
         PE = pythoneditor.PythonEditor
         self.python_editor = PE(parent=self)
         self.layout().addWidget(self.python_editor)
+        self.set_style_sheet()
 
+    def set_style_sheet(self):
+        style_sheet = """
+        QMenuBar {
+            color: #cacad0;
+            background-color:#2e272c;
+
+        }
+
+        QMenu {
+            color: #cacad0;
+            background-color:#2e272c;
+
+        }
+
+        QPlainTextEdit {
+            color: #F6F6F6;
+            background-color:#3a3a3a;
+            border: 1.5px solid #2b2b2b;
+            border-radius: 8px;
+        }
+
+        QtWidget {
+            background-color:#3a3a3a;
+            border: 1.5px solid #2b2b2b;
+            border-radius: 8px;
+        }
+
+        QtFrame {
+            background-color:#3a3a3a;
+            border: 1.5px solid #2b2b2b;
+            border-radius: 8px;
+        }
+
+        QLabel {
+            font: bold 13px;
+            color: #cacad0;
+            border:none;
+        }
+        """
+        self.setStyleSheet(style_sheet)
+    
     def reload_package(self):
         """ Reloads the whole package (except for
         this module), in an order that does not

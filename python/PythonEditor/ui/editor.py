@@ -84,12 +84,21 @@ class Editor(QPlainTextEdit):
         self.setCursorWidth(2)
         self.setStyleSheet("""
         QToolTip {
-        color: #F6F6F6;
-        background-color: rgb(45, 42, 46);
+            color: #F6F6F6;
+            background-color: rgb(38, 38, 38);
         }
+
+        QPlainTextEdit {
+            color: #F6F6F6;
+            background-color:#1e1e1e;
+            border: 1.5px solid #2b2b2b;
+            border-radius: 8px;
+        }
+
         """)
 
         # instance variables
+        self.setLineWrapMode(QPlainTextEdit.NoWrap)
         if uid is None:
             uid = str(uuid.uuid4())
         self.shortcut_overrode_keyevent = False

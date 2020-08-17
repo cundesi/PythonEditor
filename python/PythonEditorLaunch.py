@@ -28,7 +28,12 @@ def main():
         app = QtWidgets.QApplication(sys.argv)
 
     PDF = 'PYTHONEDITOR_DEFAULT_FONT'
-    os.environ[PDF] = 'Source Code Pro for Powerline'
+    fontbase = QtGui.QFontDatabase()
+    current_folder = os.path.dirname(__file__)
+    user_font_file = os.path.join(current_folder, 'scripts', 'fonts', 'DejaVu Sans Mono for Powerline.ttf')
+    fontbase.addApplicationFont(user_font_file)
+
+    os.environ[PDF] = 'DejaVu Sans Mono for Powerline'
     _ide = ide.IDE()
     _ide.setParent(app.activeWindow())
     _ide.setWindowFlags(QtCore.Qt.Window)

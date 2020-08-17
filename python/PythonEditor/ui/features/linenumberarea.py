@@ -1,6 +1,8 @@
+import os
 from PythonEditor.ui.Qt import QtGui
 from PythonEditor.ui.Qt import QtCore
 from PythonEditor.ui.Qt import QtWidgets
+from PythonEditor.utils import constants
 from PythonEditor.utils.constants import IN_NUKE
 
 
@@ -15,6 +17,14 @@ class LineNumberArea(QtWidgets.QWidget):
         self.editor = editor
         self.setParent(editor)
         self.setupLineNumbers()
+        DEFAULT_FONT = constants.DEFAULT_FONT
+        df = 'PYTHONEDITOR_DEFAULT_FONT'
+        if os.getenv(df) is not None:
+            DEFAULT_FONT = os.environ[df]
+        font = QtGui.QFont(DEFAULT_FONT)
+        font.setPointSize(10)
+        self.setFont(font)
+
 
     def setupLineNumbers(self):
 

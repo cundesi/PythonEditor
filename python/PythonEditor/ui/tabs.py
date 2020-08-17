@@ -23,6 +23,7 @@ TAB_STYLESHEET = """
 QTabBar::tab {
     height: 24px;
     min-width: 100px;
+    font: bold 13px;
 }
 """
 
