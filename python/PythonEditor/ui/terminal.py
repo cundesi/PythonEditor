@@ -86,6 +86,8 @@ class Terminal(QPlainTextEdit):
             # pyqt doesn't use anchorAt
             return super(Terminal, self).mousePressEvent(event)
 
+        if not hasattr(event, 'button'):
+            return
         if (event.button() == Qt.LeftButton):
             # TODO: this is for clicking on links, and
             # currently nothing receives the signal.
