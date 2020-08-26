@@ -133,6 +133,8 @@ def print_traceback(whole_text, error):
                 or exec_string in line):
             continue
 
+        if isinstance(line, unicode):
+            line = line.encode('gbk')
         message_lines.append(line)
 
         result = re.search(pattern, line)
@@ -147,8 +149,13 @@ def print_traceback(whole_text, error):
                 # this limit
                 lineno -= 1
             text = '    ' + text_lines[lineno].strip()
+            if isinstance(text, unicode):
+                text = text.encode('gbk')
             message_lines.append(text)
             error_line_numbers.append(lineno)
+    if isinstance(error, unicode):
+        error = error.encode('gbk')
+
     message_lines.append(error)
     error_message = '\n'.join(message_lines)
     print(error_message)

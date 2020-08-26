@@ -368,7 +368,8 @@ class AutoSaveManager(QtCore.QObject):
         if not os.path.isfile(path):
             self.tabs['saved'] = False
             return
-        with open(path, 'r') as f:
+
+        with io.open(path, 'r', encoding='utf-8') as f:
             text = f.read()
 
         editor_text = self.editor.toPlainText()
