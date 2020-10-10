@@ -53,7 +53,8 @@ def main():
         _ide.setStyle(style)
 
     print('PythonEditor import time: %.04f seconds' % (time.time() - start))
-    _ide.showMaximized()
+    #_ide.showMaximized()
+    _ide.show()
     if app.applicationName() in ['python', 'mayapy']:
         sys.exit(app.exec_())
 

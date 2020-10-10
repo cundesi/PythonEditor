@@ -57,6 +57,7 @@ add_to_meta_path()
 # imports here now that we are done modifying importer
 from PythonEditor.ui.Qt.QtWidgets import QWidget, QHBoxLayout
 from PythonEditor.ui.Qt.QtCore import QTimer, Qt
+from PythonEditor.ui.Qt.QtGui import QIcon
 from PythonEditor.ui import pythoneditor
 
 
@@ -74,6 +75,10 @@ class IDE(QWidget):
         )
         self.setObjectName('IDE')
         self.setWindowTitle('Python Editor')
+        current_folder = os.path.dirname(__file__)
+        icon_file = os.path.join(current_folder, 'images/icon.png')
+        icon_node = QIcon(icon_file)
+        self.setWindowIcon(icon_node)
         self.buildUI()
 
     def buildUI(self):
