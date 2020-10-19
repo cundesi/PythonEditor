@@ -27,6 +27,10 @@ def main():
     if not app:
         app = QtWidgets.QApplication(sys.argv)
 
+    for widget in app.allWidgets():
+        if widget.objectName() == 'IDE':
+            widget.close()
+
     PDF = 'PYTHONEDITOR_DEFAULT_FONT'
     fontbase = QtGui.QFontDatabase()
     current_folder = os.path.dirname(__file__)
