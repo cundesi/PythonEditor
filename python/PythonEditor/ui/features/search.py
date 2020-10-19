@@ -435,8 +435,4 @@ class SearchPanel(QtWidgets.QWidget):
 
         def setFocus():
             self.editor.setFocus(QtCore.Qt.MouseFocusReason)
-        app = QtWidgets.QApplication.instance()
-        if not app:
-            app = QtWidgets.QApplication(sys.argv)
-        if app.applicationName() not in ['maya']:
-            QtCore.QTimer.singleShot(500, setFocus)
+        QtCore.QTimer.singleShot(500, setFocus)
