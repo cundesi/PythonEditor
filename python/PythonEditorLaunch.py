@@ -3,7 +3,7 @@
 This file can also be executed from within an existing
 Qt QApplication to launch PythonEditor in a separate window.
 """
-from __future__ import absolute_import
+# from __future__ import absolute_import
 import sys
 import os
 import time

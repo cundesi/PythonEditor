@@ -1,6 +1,6 @@
 #!/net/homes/mlast/Desktop nuke-tg-python
 """ For testing independently. """
-from __future__ import absolute_import
+# from __future__ import absolute_import
 import sys
 import os
 
