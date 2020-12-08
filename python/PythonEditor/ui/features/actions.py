@@ -141,9 +141,8 @@ class Actions(QtCore.QObject):
             func = getattr(self, method_name)
 
             # skip placeholders
-            if func.__doc__ is not None:
-                if 'Placeholder' in func.__doc__:
-                    continue
+            if func.__doc__ is not None and 'Placeholder' in func.__doc__:
+                continue
 
             action = make_action(
                 action_name,

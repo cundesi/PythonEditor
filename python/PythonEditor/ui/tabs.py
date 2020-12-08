@@ -304,7 +304,8 @@ class Tabs(QtWidgets.QTabBar):
             QE = QtCore.QEvent
         except AttributeError:
             return True
-
+        if not hasattr(event, 'type'):
+            return 
         if event.type() in [
             QE.HoverEnter,
             QE.HoverMove,

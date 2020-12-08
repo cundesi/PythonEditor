@@ -18,10 +18,7 @@ def mainexec(text, whole_text, verbosity=VERBOSITY_LOW):
     :type text: str
     :type whole_text: str
     """
-    if len(text.strip().split('\n')) == 1:
-        mode = 'single'
-    else:
-        mode = 'exec'
+    mode = 'single' if len(text.strip().split('\n')) == 1 else 'exec'
     try:
         _code = compile(text, FILENAME, mode)
     except SyntaxError:

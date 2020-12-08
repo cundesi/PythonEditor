@@ -123,6 +123,9 @@ class ShortcutHandler(QtCore.QObject):
         if QtCore is None:
             return False
 
+        if not hasattr(event, 'type'):
+            return False
+
         if event.type() == QtCore.QEvent.Shortcut:
             if isinstance(obj, QtWidgets.QAction):
                 combo = obj.shortcut()
